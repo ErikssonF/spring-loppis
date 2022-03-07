@@ -4,6 +4,7 @@ import com.example.springloppis.entity.ItemEntity;
 import com.example.springloppis.repository.ItemRepo;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service
@@ -22,8 +23,8 @@ public class ItemService {
 
     public void deleteItem(Long id){
 
-        Optional<ItemEntity> foundItem = itemRepo.findById(id);
-        itemRepo.deleteById(foundItem.get().getId());
+        ItemEntity foundItem = itemRepo.findById(id).orElseThrow(EntityNotFoundException::new);
+        itemRepo.deleteById(foundItem.Id());
     }
 
     public Optional<ItemEntity> findItemById(Long id){

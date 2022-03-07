@@ -4,6 +4,7 @@ import com.example.springloppis.entity.UserEntity;
 import com.example.springloppis.repository.UserRepo;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service
@@ -17,14 +18,14 @@ public class UserService {
     }
 
     public UserEntity createUser(UserEntity user){
-
         return userRepo.save(user);
     }
 
     public void deleteUser(Long id){
 
-        Optional<UserEntity> foundItem = userRepo.findById(id);
-        userRepo.deleteById(foundItem.get().getId());
+        UserEntity foundUser = userRepo.findById(id).orElseThrow(EntityNotFoundException::new);
+
+        userRepo.deleteById(foundUser.getId());
     }
 
     public Optional<UserEntity> findUserById(Long id){
