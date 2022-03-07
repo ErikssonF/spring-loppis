@@ -11,9 +11,11 @@ import java.util.Optional;
 public class ItemService {
 
     ItemRepo itemRepo;
+    BeanScopesDemo beanScopesDemo;
 
-    public ItemService(ItemRepo itemRepo){
+    public ItemService(ItemRepo itemRepo, BeanScopesDemo beanScopesDemo){
         this.itemRepo = itemRepo;
+        this.beanScopesDemo = beanScopesDemo;
     }
 
     public ItemEntity createItem(ItemEntity item){
